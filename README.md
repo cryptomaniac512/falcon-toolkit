@@ -5,6 +5,7 @@ Collection of utils for the [Falcon Framework](https://github.com/falconry/falco
 [![Build Status](https://travis-ci.org/cryptomaniac512/falcon-toolkit.svg?branch=master)](https://travis-ci.org/cryptomaniac512/falcon-toolkit)
 [![Coverage Status](https://coveralls.io/repos/github/cryptomaniac512/falcon-toolkit/badge.svg?branch=master)](https://coveralls.io/github/cryptomaniac512/falcon-toolkit?branch=master)
 ![Python versions](https://img.shields.io/badge/python-3.4,%203.5,%203.6-blue.svg)
+[![PyPi](https://img.shields.io/badge/PyPi-0.0.1-yellow.svg)](https://pypi.python.org/pypi/falcon-toolkit)
 
 ## Installation
 
