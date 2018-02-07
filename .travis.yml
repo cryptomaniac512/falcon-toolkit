@@ -1,0 +1,31 @@
+sudo: false
+language: python
+
+cache: pip
+
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install coveralls tox-travis -r requirements.txt
+
+script:
+  - flake8
+  - tox
+
+after_success:
+  - coveralls
+
+before_deploy:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y pandoc
+
+deploy:
+  provider: pypi
+  user: $PyPiLogin
+  password: $PyPiPassword
+  on:
+    tags: true
+    python: 3.6
