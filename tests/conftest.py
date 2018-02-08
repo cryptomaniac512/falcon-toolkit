@@ -1,8 +1,8 @@
 import pytest
 
-from example_app import api as example_api
+import example_api
 
 
 @pytest.fixture
 def api():
-    return example_api
+    return example_api.api
