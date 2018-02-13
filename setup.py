@@ -27,5 +27,5 @@ setup(
     setup_requires=['setuptools-markdown', 'pytest-runner'],
     tests_require=['pytest'],
     url='https://github.com/cryptomaniac512/pytest-falcon-client',
-    version='0.0.2',
+    version='0.1.0',
 )
