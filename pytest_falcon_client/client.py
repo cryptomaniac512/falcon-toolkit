@@ -12,6 +12,10 @@ class ApiTestClient(testing.TestClient):
         'PUT': [200, 204],
     }
 
+    def __init__(self, *args, **kwargs):
+        self._callback = kwargs.pop('_callback', None)
+        super().__init__(*args, **kwargs)
+
     def delete(self, *args, **kwargs):
         expected = self._method_to_statuses['DELETE']
         return self._process_request('DELETE', expected, *args, **kwargs)
@@ -40,6 +44,9 @@ class ApiTestClient(testing.TestClient):
         as_response = kwargs.pop('as_response', False)
 
         response = self.simulate_request(method, *args, **kwargs)
+
+        if self._callback:
+            self._callback(self, response)
 
         if as_response:
             return response
