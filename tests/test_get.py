@@ -24,3 +24,9 @@ def test_failed_as_response(client):
 
     assert response.status_code == 400
     assert response.json == 'Invalid id'
+
+
+def test_failed_with_default_client(default_client):
+    """Will raise `KeyError` because `Origin` header is not provided"""
+    with pytest.raises(KeyError):
+        default_client.get('/example/20/')

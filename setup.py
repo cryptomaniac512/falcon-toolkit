@@ -14,7 +14,7 @@ setup(
     description='Pytest `client` fixture for the Falcon Framework',
     entry_points={
         'pytest11': [
-            'pytest-falcon-client = pytest_falcon_client.plugin:plugin',
+            'pytest-falcon-client = pytest_falcon_client.fixtures',
         ],
     },
     install_requires=['pytest>=3.4.0', 'falcon>=1.4.0'],
@@ -27,5 +27,5 @@ setup(
     setup_requires=['setuptools-markdown', 'pytest-runner'],
     tests_require=['pytest'],
     url='https://github.com/cryptomaniac512/pytest-falcon-client',
-    version='0.1.0',
+    version='1.0.0',
 )
