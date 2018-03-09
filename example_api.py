@@ -3,8 +3,13 @@ import falcon
 
 class CORSMiddleware:
 
+    origin = 'falconframework.org'
+
     def process_response(self, req, resp, *args, **kwargs):
-        resp.set_header('Access-Control-Allow-Origin', '*')
+        resp.set_header('Access-Control-Allow-Origin', self.origin)
+
+    def process_request(self, req, resp):
+        assert req.headers['ORIGIN'] == self.origin
 
 
 api = falcon.API(middleware=[CORSMiddleware()])
