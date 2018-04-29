@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     author='Nikita Sivakov',
-    author_email='cryptomaniac.512@gmail.com',
+    author_email='sivakov512@gmail.com',
     classifiers=[
         "Framework :: Pytest",
         'License :: OSI Approved :: MIT License',
@@ -26,6 +26,6 @@ setup(
     python_requires='>=3.4',
     setup_requires=['setuptools-markdown', 'pytest-runner'],
     tests_require=['pytest'],
-    url='https://github.com/cryptomaniac512/pytest-falcon-client',
-    version='1.0.0',
+    url='https://github.com/sivakov512/pytest-falcon-client',
+    version='1.0.1',
 )
