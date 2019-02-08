@@ -1,4 +1,12 @@
+import os
+
 from setuptools import setup
+
+
+def read(fname):
+    with open(os.path.join(os.path.dirname(__file__), fname)) as _f:
+        return _f.read()
+
 
 setup(
     author='Nikita Sivakov',
@@ -20,12 +28,13 @@ setup(
     install_requires=['pytest>=3.4.0', 'falcon>=1.4.0'],
     keywords=['pytest', 'fixture', 'falcon', 'client', 'api'],
     license='MIT',
-    long_description_markdown_filename='README.md',
+    long_description=read('README.md'),
+    long_description_content_type="text/markdown",
     name='pytest-falcon-client',
     packages=['pytest_falcon_client'],
     python_requires='>=3.4',
-    setup_requires=['setuptools-markdown', 'pytest-runner'],
+    setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     url='https://github.com/sivakov512/pytest-falcon-client',
-    version='1.0.2',
+    version='1.0.3',
 )
