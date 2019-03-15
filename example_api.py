@@ -12,7 +12,8 @@ class CORSMiddleware:
         assert req.headers['ORIGIN'] == self.origin
 
 
-api = falcon.API(middleware=[CORSMiddleware()])
+api = falcon.API()
+cors_api = falcon.API(middleware=[CORSMiddleware()])
 
 
 class ExampleResource:
@@ -55,5 +56,9 @@ class ExampleResource:
 
 
 example_resource = ExampleResource()
+
 api.add_route('/example/', example_resource)
 api.add_route('/example/{id:int}/', example_resource)
+
+cors_api.add_route('/example/', example_resource)
+cors_api.add_route('/example/{id:int}/', example_resource)

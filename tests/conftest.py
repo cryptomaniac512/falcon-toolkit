@@ -5,11 +5,16 @@ from pytest_falcon_client import ApiTestClient
 
 
 @pytest.fixture
+def cors_api():
+    return example_api.cors_api
+
+
+@pytest.fixture
 def api():
     return example_api.api
 
 
-class CustomApiTestClient(ApiTestClient):
+class CorsApiTestClient(ApiTestClient):
     def response_assertions(self, response):
         # test cors headers globally
         assert response.headers[
@@ -22,5 +27,10 @@ class CustomApiTestClient(ApiTestClient):
 
 
 @pytest.fixture
-def client(api):
-    return CustomApiTestClient(api)
+def cors_client(cors_api):
+    return CorsApiTestClient(cors_api)
+
+
+@pytest.fixture
+def client(make_client, api):
+    return make_client(api)

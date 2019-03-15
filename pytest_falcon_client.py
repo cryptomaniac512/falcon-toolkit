@@ -63,10 +63,5 @@ class ApiTestClient(testing.TestClient):
 
 
 @pytest.fixture
-def default_client(api):
-    return ApiTestClient(api)
-
-
-@pytest.fixture
-def client(default_client):
-    return default_client
+def make_client():
+    return lambda api: ApiTestClient(api)
