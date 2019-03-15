@@ -41,23 +41,24 @@ You can define your own client class to make global assertions or request prepar
 ``` python
 import pytest
 
+from pytest_falcon_client import ApiTestClient
+
+
+class CustomApiTestClient(ApiTestClient):
+    def response_assertions(self, response):
+        # test cors headers globally
+        assert response.headers[
+            'Access-Control-Allow-Origin'] == 'falconframework.org'
+
+    def prepare_request(self, method, expected, *args, **kwargs):
+        # add `ORIGIN` header to every request
+        kwargs['headers'] = {'Origin': 'falconframework.org'}
+        return args, kwargs
+
 
 @pytest.fixture
-def ApiTestClientCls(ApiTestClientCls):
-
-    class ApiTestClient(ApiTestClientCls):
-
-        def response_assertions(self, response):
-            # test cors headers globally
-            assert response.headers[
-                'Access-Control-Allow-Origin'] == 'falconframework.org'
-
-        def prepare_request(self, method, expected, *args, **kwargs):
-            # add `ORIGIN` header to every request
-            kwargs['headers'] = {'Origin': 'falconframework.org'}
-            return args, kwargs
-
-    return ApiTestClient
+def client(api):
+    return CustomApiTestClient(api)
 
 
 def test_something_else(client):
@@ -65,7 +66,7 @@ def test_something_else(client):
     assert got == {'awesome': 100500}
 ```
 
-If you need default client, but `ApiTestClientCls` redefined globally, use `default_client` fixture
+If you need default client, but previously custom client was defined in current scope, use `default_client` fixture
 ``` python
 def test_something_else(default_client):
     got = default_client.get('/some_url/100500/')

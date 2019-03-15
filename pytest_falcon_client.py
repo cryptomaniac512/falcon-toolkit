@@ -1,3 +1,4 @@
+import pytest
 from falcon import testing
 
 
@@ -59,3 +60,13 @@ class ApiTestClient(testing.TestClient):
 
         if response.content:
             return response.json
+
+
+@pytest.fixture
+def default_client(api):
+    return ApiTestClient(api)
+
+
+@pytest.fixture
+def client(default_client):
+    return default_client
