@@ -1,0 +1,2 @@
+[flake8]
+ignore = C815,C816

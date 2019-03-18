@@ -13,50 +13,39 @@ class ApiTestClient(testing.TestClient):
         'PUT': [200, 204],
     }
 
-    def delete(self, *args, **kwargs):
-        expected = self._method_to_statuses['DELETE']
-        return self._process_request('DELETE', expected, *args, **kwargs)
+    def prepare_request(self, method, expected_statuses, *args, **kwargs):
+        return args, kwargs, expected_statuses
 
-    def get(self, *args, **kwargs):
-        expected = self._method_to_statuses['GET']
-        return self._process_request('GET', expected, *args, **kwargs)
-
-    def head(self, *args, **kwargs):
-        expected = self._method_to_statuses['HEAD']
-        return self._process_request('HEAD', expected, *args, **kwargs)
-
-    def options(self, *args, **kwargs):
-        expected = self._method_to_statuses['OPTIONS']
-        return self._process_request('OPTIONS', expected, *args, **kwargs)
-
-    def post(self, *args, **kwargs):
-        expected = self._method_to_statuses['POST']
-        return self._process_request('POST', expected, *args, **kwargs)
-
-    def put(self, *args, **kwargs):
-        expected = self._method_to_statuses['PUT']
-        return self._process_request('PUT', expected, *args, **kwargs)
-
-    def prepare_request(self, method, expected, *args, **kwargs):
-        return args, kwargs
+    def __getattr__(self, name: str):
+        return lambda *a, **kw: self._process_request(name.upper(), *a, **kw)
 
     def response_assertions(self, response):
         pass  # pragma: no cover
 
-    def _process_request(self, method, expected, *args, **kwargs):
-        args, kwargs = self.prepare_request(
-            method, expected, *args, **kwargs)
+    def _process_request(
+            self,
+            method: str,
+            path: str,
+            expected_statuses: list = None,
+            as_response: bool = False,
+            *args,
+            **kwargs):
+        args, kwargs, expected_statuses = self.prepare_request(
+            method,
+            expected_statuses or self._method_to_statuses.get(method, []),
+            *args, **kwargs)
 
-        as_response = kwargs.pop('as_response', False)
-
-        response = self.simulate_request(method, *args, **kwargs)
+        response = self.simulate_request(
+            method=method, path=path, *args, **kwargs
+        )
 
         self.response_assertions(response)
 
         if as_response:
             return response
 
-        assert response.status_code in expected
+        if expected_statuses:
+            assert response.status_code in expected_statuses
 
         if response.content:
             return response.json

@@ -23,7 +23,7 @@ class CorsApiTestClient(ApiTestClient):
     def prepare_request(self, method, expected, *args, **kwargs):
         # add `ORIGIN` header to every request
         kwargs['headers'] = {'Origin': 'falconframework.org'}
-        return args, kwargs
+        return args, kwargs, expected
 
 
 @pytest.fixture
