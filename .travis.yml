@@ -6,8 +6,6 @@ language: python
 cache: pip
 
 python:
-  - "3.4"
-  - "3.5"
   - "3.6"
   - "3.7"
 
@@ -16,6 +14,7 @@ install:
 
 script:
   - flake8
+  - black --check ./
   - python setup.py test
 
 after_success:

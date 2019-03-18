@@ -4,7 +4,8 @@ Pytest `client` fixture for the [Falcon Framework](https://github.com/falconry/f
 
 [![Build Status](https://travis-ci.org/sivakov512/pytest-falcon-client.svg?branch=master)](https://travis-ci.org/sivakov512/pytest-falcon-client)
 [![Coverage Status](https://coveralls.io/repos/github/sivakov512/pytest-falcon-client/badge.svg?branch=master)](https://coveralls.io/github/sivakov512/pytest-falcon-client?branch=master)
-![Python versions](https://img.shields.io/badge/python-3.4,%203.5,%203.6,%203.7-blue.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+![Python versions](https://img.shields.io/badge/python-3.6,%203.7-blue.svg)
 [![PyPi](https://img.shields.io/pypi/v/pytest-falcon-client.svg)](https://pypi.python.org/pypi/pytest-falcon-client)
 
 ## Installation

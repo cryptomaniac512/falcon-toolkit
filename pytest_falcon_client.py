@@ -5,12 +5,12 @@ from falcon import testing
 class ApiTestClient(testing.TestClient):
 
     _method_to_statuses = {
-        'DELETE': [200, 202, 204],
-        'GET': [200],
-        'HEAD': [200],
-        'OPTIONS': [200],
-        'POST': [201],
-        'PUT': [200, 204],
+        "DELETE": [200, 202, 204],
+        "GET": [200],
+        "HEAD": [200],
+        "OPTIONS": [200],
+        "POST": [201],
+        "PUT": [200, 204],
     }
 
     def prepare_request(self, method, expected_statuses, *args, **kwargs):
@@ -23,17 +23,20 @@ class ApiTestClient(testing.TestClient):
         pass  # pragma: no cover
 
     def _process_request(
-            self,
-            method: str,
-            path: str,
-            expected_statuses: list = None,
-            as_response: bool = False,
-            *args,
-            **kwargs):
+        self,
+        method: str,
+        path: str,
+        expected_statuses: list = None,
+        as_response: bool = False,
+        *args,
+        **kwargs,
+    ):
         args, kwargs, expected_statuses = self.prepare_request(
             method,
             expected_statuses or self._method_to_statuses.get(method, []),
-            *args, **kwargs)
+            *args,
+            **kwargs,
+        )
 
         response = self.simulate_request(
             method=method, path=path, *args, **kwargs

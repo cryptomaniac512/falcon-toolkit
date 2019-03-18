@@ -5,19 +5,19 @@ import pytest
 def test_getting_json(request, client_fixture):
     client = request.getfixturevalue(client_fixture)
 
-    got = client.post('/example/', json={'id': 42})
+    got = client.post("/example/", json={"id": 42})
 
-    assert got == '42 created'
+    assert got == "42 created"
 
 
 @pytest.mark.parametrize("client_fixture", ("client", "cors_client"))
 def test_getting_response(request, client_fixture):
     client = request.getfixturevalue(client_fixture)
 
-    response = client.post('/example/', json={'id': 42}, as_response=True)
+    response = client.post("/example/", json={"id": 42}, as_response=True)
 
     assert response.status_code == 201
-    assert response.json == '42 created'
+    assert response.json == "42 created"
 
 
 @pytest.mark.parametrize("client_fixture", ("client", "cors_client"))
@@ -25,26 +25,26 @@ def test_raises_for_failed_request(request, client_fixture):
     client = request.getfixturevalue(client_fixture)
 
     with pytest.raises(AssertionError):
-        client.post('/example/', json={'id': 44})
+        client.post("/example/", json={"id": 44})
 
 
 @pytest.mark.parametrize("client_fixture", ("client", "cors_client"))
 def test_getting_response_for_failed_request(request, client_fixture):
     client = request.getfixturevalue(client_fixture)
 
-    response = client.post('/example/', json={'id': 44}, as_response=True)
+    response = client.post("/example/", json={"id": 44}, as_response=True)
 
     assert response.status_code == 400
-    assert response.json == 'Invalid id'
+    assert response.json == "Invalid id"
 
 
 @pytest.mark.parametrize("client_fixture", ("client", "cors_client"))
 def test_getting_json_for_failed_request(request, client_fixture):
     client = request.getfixturevalue(client_fixture)
 
-    got = client.post('/example/', json={'id': 44}, expected_statuses=[400])
+    got = client.post("/example/", json={"id": 44}, expected_statuses=[400])
 
-    assert got == 'Invalid id'
+    assert got == "Invalid id"
 
 
 def test_raises_with_default_client_for_cors_api(make_client, cors_api):
@@ -53,4 +53,4 @@ def test_raises_with_default_client_for_cors_api(make_client, cors_api):
     client = make_client(cors_api)
 
     with pytest.raises(KeyError):
-        client.post('/example/', json={'id': 42})
+        client.post("/example/", json={"id": 42})

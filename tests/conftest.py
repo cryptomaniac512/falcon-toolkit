@@ -17,12 +17,14 @@ def api():
 class CorsApiTestClient(ApiTestClient):
     def response_assertions(self, response):
         # test cors headers globally
-        assert response.headers[
-            'Access-Control-Allow-Origin'] == 'falconframework.org'
+        assert (
+            response.headers["Access-Control-Allow-Origin"]
+            == "falconframework.org"
+        )
 
     def prepare_request(self, method, expected, *args, **kwargs):
         # add `ORIGIN` header to every request
-        kwargs['headers'] = {'Origin': 'falconframework.org'}
+        kwargs["headers"] = {"Origin": "falconframework.org"}
         return args, kwargs, expected
 
 
