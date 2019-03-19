@@ -29,7 +29,7 @@ class ApiTestClient(testing.TestClient):
     def _process_request(
         self,
         method: str,
-        path: str,
+        path: str = "/",
         expected_statuses: List[int] = None,
         as_response: bool = False,
         *args,
