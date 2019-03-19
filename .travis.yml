@@ -15,7 +15,7 @@ install:
 script:
   - flake8
   - black --check ./
-  - python setup.py test
+  - coverage run --source pytest_falcon_client -m setup test
 
 after_success:
   - coveralls
