@@ -25,11 +25,11 @@ setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     name="pytest-falcon-client",
-    modules=["pytest_falcon_client"],
+    py_modules=["pytest_falcon_client"],
     python_requires=">=3.6",
     install_requires=["pytest>=4.3", "falcon>=1.4"],
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
     url="https://github.com/sivakov512/pytest-falcon-client",
-    version="2.0.0",
+    version="2.0.1",
 )
