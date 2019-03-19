@@ -6,17 +6,16 @@ language: python
 cache: pip
 
 python:
-  - "3.4"
-  - "3.5"
   - "3.6"
   - "3.7"
 
 install:
-  - pip install coveralls tox-travis -r requirements.txt
+  - pip install coveralls -r requirements.txt
 
 script:
   - flake8
-  - tox
+  - black --check ./
+  - coverage run --source pytest_falcon_client -m setup test
 
 after_success:
   - coveralls
