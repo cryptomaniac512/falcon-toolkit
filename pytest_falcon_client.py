@@ -1,3 +1,5 @@
+from typing import Any, List, Optional, Tuple, Union
+
 import pytest
 from falcon import testing
 
@@ -13,24 +15,26 @@ class ApiTestClient(testing.TestClient):
         "PUT": [200, 204],
     }
 
-    def prepare_request(self, method, expected_statuses, *args, **kwargs):
+    def prepare_request(
+        self, method: str, expected_statuses: List[str], *args, **kwargs
+    ) -> Tuple[tuple, dict, List[str]]:
         return args, kwargs, expected_statuses
 
     def __getattr__(self, name: str):
         return lambda *a, **kw: self._process_request(name.upper(), *a, **kw)
 
-    def response_assertions(self, response):
+    def response_assertions(self, response: testing.Result):
         pass  # pragma: no cover
 
     def _process_request(
         self,
         method: str,
         path: str,
-        expected_statuses: list = None,
+        expected_statuses: List[int] = None,
         as_response: bool = False,
         *args,
         **kwargs,
-    ):
+    ) -> Optional[Union[Any, testing.Result]]:
         args, kwargs, expected_statuses = self.prepare_request(
             method,
             expected_statuses or self._method_to_statuses.get(method, []),
